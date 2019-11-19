@@ -1,5 +1,6 @@
 #include <math.h>
 #include <stdio.h>
+#define FLOAT 1e-6
 
 float add(float x, float y)
 {
@@ -51,7 +52,7 @@ int main(void)
             case '/': {
                 bet = fin;
                 scanf("%f", &num);
-                if (num != 0) {
+                if ((a - 0) >= FLOAT && (0 - a) <=-FLOAT) {
                     fin = divide(bet, num);
                 } else {
                     printf("Value of expression: -nan");
