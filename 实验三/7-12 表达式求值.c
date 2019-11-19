@@ -1,22 +1,22 @@
 #include <math.h>
 #include <stdio.h>
 
-float he(float x, float y)
+float add(float x, float y)
 {
     return x + y;
 }
 
-float cha(float x, float y)
+float minus(float x, float y)
 {
     return x - y;
 }
 
-float ji(float x, float y)
+float multiply(float x, float y)
 {
     return x * y;
 }
 
-float shang(float x, float y)
+float divide(float x, float y)
 {
     return x / y;
 }
@@ -33,26 +33,26 @@ int main(void)
             case '+': {
                 bet = fin;
                 scanf("%f", &num);
-                fin = he(bet, num);
+                fin = add(bet, num);
             }
                 continue;
             case '-': {
                 bet = fin;
                 scanf("%f", &num);
-                fin = cha(bet, num);
+                fin = minus(bet, num);
             }
                 continue;
             case '*': {
                 bet = fin;
                 scanf("%f", &num);
-                fin = ji(bet, num);
+                fin = multiply(bet, num);
             }
                 continue;
             case '/': {
                 bet = fin;
                 scanf("%f", &num);
                 if (num != 0) {
-                    fin = shang(bet, num);
+                    fin = divide(bet, num);
                 } else {
                     printf("Value of expression: -nan");
                     return 0;
