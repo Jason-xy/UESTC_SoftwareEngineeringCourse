@@ -1,4 +1,3 @@
-#include <stdbool.h> /* C99 only */
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -53,35 +52,38 @@ char pop(void)
     return '\0'; /* prevents compiler warning due to stack_underflow() call */
 }
 
-int main(void)
+int main()
 {
-    char a[50] = { '\0' };
-    int i = 0;
-    printf("Enter parentheses and/or braces:");
-    make_empty();
-    while (1) {
-        a[i] = getchar();
-        if (a[i] == ' ')
-            continue;
-        if (a[i] == '\n') {
-            a[i] = '\0';
-            break;
-        }
-        i++;
-    }
-    i = 0;
-    while (i <= 50) {
-        push(a[i]);
-        if (top >= 2) {
-            if ((contents[top - 2] == '(' && contents[top - 1] == ')') || (contents[top - 2] == '{' && contents[top - 1] == '}')) {
-                contents[top - 2] = 0, contents[top - 1] = 0;
-                top -= 2;
-            }
-        }
-        i++;
-    }
-    if (contents[0] == '\0')
-        printf("Parentheses/braces are nested properly");
+	char a;
+	push(getchar());
+	while(contents[top-1]!='\n')
+	{
+		a=getchar();
+		push(a);
+		if(top>1)
+		{
+		if(contents[top-1]==')')
+		{
+			if(contents[top-2]=='(')
+			{
+				top-=2;
+				contents[top]=0;
+				}
+		}
+		if(contents[top-1]=='}')
+		{
+			if(contents[top-2]=='{')
+			{
+				top-=2;
+				contents[top]=0;
+				}
+		}
+		}
+		printf("%c",contents[top]);
+		
+	}
+	if (contents[0] == 0)
+        printf("Parentheses/braces are nested properly.");
     else
         printf("Parentheses/braces are NOT nested properly");
     return 0;
