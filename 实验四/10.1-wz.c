@@ -1,3 +1,4 @@
+
 #include <stdbool.h> /* C99 only */
 #include <stdio.h>
 #include <stdlib.h>
@@ -60,14 +61,9 @@ int main(void)
     {
         ch = getchar();
         if (ch == 40 || ch == 123) 
-        {
-            push(ch);
-            continue;
-        } else if (contents[top - 1] == ch - 1 || contents[top - 1] == ch - 2)
-        {
+         push(ch);
+         else if (contents[top - 1] == ch - 1 || contents[top - 1] == ch - 2)
             pop();
-            continue;
-        }
         else if (ch == '}' || ch == ')') push(ch);
         else break;
     }
