@@ -1,4 +1,4 @@
-# 爆肝不易，记得--*素|质|三|连*--
+# 爆肝不易，记得__素|质|三|连__
 # UESTC_icoding_homework
 本项目作为2019－2020年UESTC_icoding代码存储库。  
 大家别光顾着Fork了哦，有空也记得**Commit,Push and New pull request!**  
