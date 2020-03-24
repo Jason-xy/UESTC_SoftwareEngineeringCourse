@@ -5,21 +5,26 @@
 int compute_reverse_polish_notation(char *str)
 {
     Stack S;
-    init_Stack(Stack &S);
+    init_stack(&S);
     char* p=str;
     int x,num1,num2;
     for(;*p!='\0';p++)
     {
-        if(*p==' ')continue;
-        if(*p>='0'&&*p<='9') 
+        x=0;
+        if(*p>='0'&&*p<='9')
         {
-            x=(int)(*p-'0');
-            push(Stack* S, ElemType x);
+            while(*p!=' ') 
+            {
+                x=10*x+(*p-'0');
+                p++;
+            }
+            push(&S, x);
+            p++;
         }
         else 
         {
-            pop(Stack* S, ElemType *num1);
-            pop(Stack* S, ElemType *num2);
+            pop(&S, &num1);
+            pop(&S, &num2);
             switch(*p)
             {
                 case '+':
@@ -32,25 +37,25 @@ int compute_reverse_polish_notation(char *str)
                     num1 -= num2;
                     break;
                 }
-                    case '*':
+                case '*':
                 {
                     num1 *= num2;
                     break;
                 }
-                    case '/':
+                case '/':
                 {
                     num1 /= num2;
                     break;
                 }
-                    case '%':
+                case '%':
                 {
                     num1 %= num2;
                     break;
                 }
             }
-            push(Stack* S, ElemType num1);
+            push(&S, num1);
         }
     }
-    pop(Stack* S, ElemType *num1);
+    pop(&S, &num1);
     return num1;
 }
