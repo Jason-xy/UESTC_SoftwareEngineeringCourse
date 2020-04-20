@@ -51,3 +51,20 @@ void pre_order(BiTree root){
         }
     }
 }
+
+void pre_order(BiTree root){
+    BiTree tp=root;
+    Stack *s;
+    init_stack(s);
+    push(s,tp);
+    while(!is_empty(s))
+    {
+        pop(s,tp);
+        if(tp!=NULL)
+        {
+            visit_node(tp);
+            push(s,tp->left);
+            push(s,tp->right)
+        }
+    }
+}
