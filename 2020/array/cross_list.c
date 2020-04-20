@@ -92,4 +92,8 @@ int del_cross_list(PCrossList L, ElemType k){
             free(q);
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> d2f91945358945e9f331113fee5bb52974924453
