@@ -59,12 +59,14 @@ void pre_order(BiTree root){
     push(s,tp);
     while(!is_empty(s))
     {
-        pop(s,tp);
-        if(tp!=NULL)
+        pop(s,&tp);
+        if(tp)s
         {
             visit_node(tp);
+            if(tp->right)
+            push(s,tp->right);
+            if(tp->left)
             push(s,tp->left);
-            push(s,tp->right)
         }
     }
 }
