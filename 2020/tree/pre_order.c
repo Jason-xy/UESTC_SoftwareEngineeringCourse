@@ -29,9 +29,6 @@
 // bool pop(Stack* S, ElemType *px); //出栈，元素保存到px所指的单元，函数返回true,栈为空时返回 false
 // bool top(Stack* S, ElemType *px); //获取栈顶元素，将其保存到px所指的单元，函数返回true，栈满时返回 false
 // bool is_empty(Stack* S);  // 栈为空时返回 true，否则返回 false
-#include <stdlib.h>
-#include <stdio.h>
-#include "bitree.h" //请不要删除，否则检查不通过
 #include "bitree.h" //请不要删除，否则检查不通过
 #include <stdio.h>
 #include <stdlib.h>
