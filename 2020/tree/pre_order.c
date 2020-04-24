@@ -32,22 +32,24 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "bitree.h" //请不要删除，否则检查不通过
-void pre_order(BiTree root){
-    BiTree tp=root;
-    Stack *s;
+#include "bitree.h" //请不要删除，否则检查不通过
+#include <stdio.h>
+#include <stdlib.h>
+void pre_order(BiTree root)
+{
+    BiTree tp = root;
+    Stack* s;
+    s = (Stack*)malloc(sizeof(Stack));
     init_stack(s);
-    while(tp||!is_empty(s))
-    {
-        if(tp!=NULL)
-        {
+    push(s, tp);
+    while (!is_empty(s)) {
+        pop(s, &tp);
+        if (tp) {
             visit_node(tp);
-            push(s,tp);
-            tp=tp->left;
-        }
-        else
-        {
-            pop(s,tp);
-            tp=tp->right;
+            if (tp->right)
+                push(s, tp->right);
+            if (tp->left)
+                push(s, tp->left);
         }
     }
 }
