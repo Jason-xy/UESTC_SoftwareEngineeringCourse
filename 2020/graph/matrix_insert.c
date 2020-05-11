@@ -45,8 +45,8 @@ bool matrix_insert_arc(MatrixGraph *G, VertexType v, VertexType w){
     int n=matrix_locate_vertex(G,w);
     if(m==-1||n==-1)
     return false;
-    if(m==G->vexnum)m--;
-    if(n==G->vexnum)n--;
+    if(m==G->vexnum)m--;//
+    if(n==G->vexnum)n--;//magic time
     if(G->arcs[m][n]==1)
     return false;
     G->arcnum++;
