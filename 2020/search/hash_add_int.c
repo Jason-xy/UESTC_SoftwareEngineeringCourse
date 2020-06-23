@@ -88,6 +88,6 @@ HASH_RESULT hash_add_int(HashTable* table, const char* key, int value)
     }
     strcpy(p->key.str_value, key);
     p->value.int_value = value;
-    table->bucket[hash] = p;
+    table->bucket[hash] = p;//这里按道理应该把之前的节点接到p的next域上
     return HASH_ADDED;
 }
