@@ -9,7 +9,7 @@ int main(void)
     printf("Enter starting day of the week(1=Sun,7=Sat):");
     scanf("%d", &first);
 
-    printf("一	二	三	四	五	六	日	");
+    printf("一	二	三	四	五	六	日	\n");
     for (int i = 1; i < first; i++)
         printf("	");
     for (day = 1; day <= 8 - first; day++)
