@@ -1,61 +1,40 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "list.h" // 璇蜂笉瑕佸垹闄わ紝鍚﹀垯妫�鏌ヤ笉閫氳繃
+#include <string.h>
+#include "list.h" // 请不要删除，否则检查不通过
 
-int compute_reverse_polish_notation(char *str)
-{
-    Stack S;
-    init_stack(&S);
-    char* p=str;
-    int x,num1,num2;
-    for(;*p!='\0';p++)
-    {
-        x=0;
-        if(*p>='0'&&*p<='9')
-        {
-            while(*p!=' ') 
-            {
-                x=10*x+(*p-'0');
-                p++;
-            }
-            push(&S, x);
-            p++;
-        }
-        else 
-        {
-            pop(&S, &num1);
-            pop(&S, &num2);
-            switch(*p)
-            {
-                case '+':
-                {
-                    num1 += num2;
-                    break;
-                }
-                case '-':
-                {
-                    num1 -= num2;
-                    break;
-                }
-                case '*':
-                {
-                    num1 *= num2;
-                    break;
-                }
-                case '/':
-                {
-                    num1 /= num2;
-                    break;
-                }
-                case '%':
-                {
-                    num1 %= num2;
-                    break;
-                }
-            }
-            push(&S, num1);
-        }
-    }
-    pop(&S, &num1);
-    return num1;
+Stack S;
+
+void getnum(int* x, int* i, char* str) {
+	int ret = 0;
+	while (str[*i] >= '0' && str[*i] <= '9') {
+		ret = ret * 10 + (str[*i] - '0');
+		++(*i);
+	}
+	*x = ret;
+}
+
+int compute_reverse_polish_notation(char* str) {
+	int n = strlen(str), i, x = 0;
+	init_stack(&S);
+	for (i = 0; i < n; ++i) {
+		if (str[i] >= '0' && str[i] <= '9') {
+			getnum(&x, &i, str);
+			push(&S, x);
+		}
+		else {
+			pop(&S, &x);
+			int y = 0, z = 0;
+			pop(&S, &y);
+			if (str[i] == '+') z = y + x;
+			if (str[i] == '-') z = y - x;
+			if (str[i] == '*') z = y * x;
+			if (str[i] == '/') z = y / x;
+			if (str[i] == '%') z = y % x;
+			push(&S, z);
+			++i;
+		}
+	}
+	pop(&S, &x);
+	return x;
 }

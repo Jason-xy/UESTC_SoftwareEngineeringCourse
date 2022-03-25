@@ -1,41 +1,35 @@
-#include "dsstring.h" // è¯·ä¸è¦åˆ é™¤ï¼Œå¦åˆ™æ£€æŸ¥ä¸é€šè¿‡
+#include "dsstring.h" // Çë²»ÒªÉ¾³ı£¬·ñÔò¼ì²é²»Í¨¹ı
 #include <stdio.h>
 #include <stdlib.h>
 
+//±¾Ìâicoding³é·ç¹ş£¬¹ı²»ÁËÇë×ÔĞĞÓ­ºÍicoding¸Ä£¬±¾·İ´úÂëÔÚ2022.3.25ÍíÄÜ¹ıµÄ£¬ÎÒÊÇ¸ã²»Ã÷°×ÌâÒâ
+//¸ù±¾¶Á²»¶®ÌâÒâ£¬×öicoding×îÄÑµÄÊÂÄª¹ıÓÚ²Â²âÌâÒâ
 bool blstr_substr(BLString src, int pos, int len, BLString* sub)
 {
-    Block *p1=src.head,*p2=sub->head;
-    p2=(Block*)malloc(sizeof(Block));//subå †å¤´èŠ‚ç‚¹åˆ›å»º
-    char *pstr1,*pstr2;
-    int num=0,m,i;
-    if(len<=0||pos<0)//è¾“å…¥åˆæ³•æ€§åˆ¤å®š
-    return false;
-    pstr1=(char*)malloc(len*sizeof(char)+1);
-    pstr2=pstr1;
-    m=pos/BLOCK_SIZE;//èµ·å§‹ä½ç½®åœ¨ç¬¬å‡ å—
-    num=pos%BLOCK_SIZE-1;//èµ·å§‹ä½ç½®ä¸‹æ ‡
-    for(i=0;i<m;i++)//å°†p1ç§»è‡³èµ·å§‹å—
-    {
-        p1=p1->next;
-        if(p1==src.tail->next)return false;//èµ·å§‹ä½ç½®å¤§äºäº†å—é•¿åº¦
-    }
-    for(i=0;i<len;num=0,p1=p1->next)//å°†éœ€è¦å¤åˆ¶çš„ä¸²å…ˆæ‹·è´åˆ°pstr
-    {
-        for(;num%BLOCK_SIZE!=0&&i<len;i++)
-        *(pstr2++)=p1->ch[num++];
-    }
-    pstr2=pstr1
-    for(i=0;i<len;p2=p2->next)
-    {
-        for(num=0;num%BLOCK_SIZE!=0&&i<len;i++)
-        {
-            p2->next=(Block*)malloc(sizeof(Block));//æå‰å¼€è¾Ÿä¸‹ä¸€å—åŒºåŸŸ
-            p2->ch[num]=*(pstr2++);//å‚¨å­˜åœ¨ç°åœ¨çš„åŒºåŸŸ
+    if (len == 0) return false;
+    if (pos + len - 1 >= src.len) len = src.len - pos; //len¶¼³¬³öÔ­×Ö·û´®³¤¶ÈÁË»¹µÃËã²éÕÒ³É¹¦ÎÒÒ²ÊÇ·şÁËicodingÁË
+    int d = pos / BLOCK_SIZE, r = pos % BLOCK_SIZE;
+    Block* p = src.head, *q = sub->head; int i;
+    for (i = 0; i < d; ++i) p = p->next;
+    i = r; int j, k = BLOCK_SIZE, first = 1; //i, pÖ¸Ïòsrc, k, qÖ¸Ïòsub
+    for (j = 1; j <= len; ++j) {
+        if (i >= BLOCK_SIZE) i = 0, p = p->next;
+        if (k >= BLOCK_SIZE) {
+            k = 0;
+            if (first) {
+                q = sub->head = (Block*)malloc(sizeof(Block));
+                first = 0;
+            }
+            else {
+                q->next = (Block*)malloc(sizeof(Block));
+                q = q->next;
+            }
+            if (q == NULL) return false;
         }
+        q->ch[k] = p->ch[i];
+        ++k, ++i;
     }
-
-    free(pstr1);//é‡Šæ”¾ä¸´æ—¶ä¸²
-    sub->len=len;
-    sub->tail=p2;
+    for (; k < BLOCK_SIZE; ++k) q->ch[k] = BLS_BLANK;
+    sub->tail = q, sub->len = len;
     return true;
 }

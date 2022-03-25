@@ -2,13 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef int ElemType;
-struct _seqlist {
-    ElemType elem[MAXSIZE];
-    int last;
-};
-typedef struct _seqlist SeqList;
-
 void odd_even(SeqList* L)
 {
     int i = 0, j = L->last;
